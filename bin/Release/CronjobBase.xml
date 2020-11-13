@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CronjobBase</name>
+    </assembly>
+    <members>
+        <member name="F:CronjobBase.Crontask.eRunningType.daily">
+            <summary>
+            Täglich zu einer festen Zeit. (Täglich um 13 Uhr)
+            </summary>
+        </member>
+        <member name="F:CronjobBase.Crontask.eRunningType.interval">
+            <summary>
+            Einer nach dem anderen (z.B.: 5 Minuten nach dem letzten)
+            </summary>
+        </member>
+        <member name="F:CronjobBase.Crontask.eRunningType.absolute">
+            <summary>
+            Interval (Alle 3 Stunden z.B.: 0, 3, 6, 9, 12, 15, 18, 21)
+            </summary>
+        </member>
+        <member name="M:CronjobBase.Crontask.DoCronTask">
+            <summary>
+            Does a Task in sync
+            </summary>
+        </member>
+        <member name="M:CronjobBase.Crontask.DoAsyncCronTask">
+            <summary>
+            Does one or multiple tasks async and waites for completion.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CronjobBase.ICrontask.DoCronTask">
+            <summary>
+            Wird aufgerufen, wenn der Zeitraum abgelaufen ist.
+            </summary>
+        </member>
+        <member name="M:CronjobBase.ICrontask.ExceptionRaised(System.Exception)">
+            <summary>
+            Wird aufgerufen wenn ein Fehler aufgetreten ist.
+            </summary>
+            <param name="ex"></param>
+        </member>
+    </members>
+</doc>

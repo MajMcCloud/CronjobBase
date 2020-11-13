@@ -1,0 +1,7 @@
+D:\Projekte\Network\CronjobBase\bin\Release\CronjobBase.dll
+D:\Projekte\Network\CronjobBase\bin\Release\CronjobBase.pdb
+D:\Projekte\Network\CronjobBase\obj\Release\CronjobBase.dll
+D:\Projekte\Network\CronjobBase\obj\Release\CronjobBase.pdb
+D:\Projekte\Network\CronjobBase\bin\Release\CronjobBase.xml
+D:\Projekte\Network\CronjobBase\obj\Release\CronjobBase.csproj.CoreCompileInputs.cache
+D:\Projekte\Network\CronjobBase\obj\Release\CronjobBase.csprojAssemblyReference.cache
