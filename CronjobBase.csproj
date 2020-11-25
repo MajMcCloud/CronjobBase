@@ -43,6 +43,7 @@
     <Compile Include="Crontask.cs" />
     <Compile Include="extensions\DateTimeExtensions.cs" />
     <Compile Include="ICrontask.cs" />
+    <Compile Include="CrontaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
