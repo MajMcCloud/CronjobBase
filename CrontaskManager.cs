@@ -77,6 +77,9 @@ namespace CronjobBase
         /// </summary>
         public static void RestartAllTasks()
         {
+#if DEBUG
+            int i = 0;
+#endif
             foreach (var ct in RegisteredTasks)
             {
                 if (!ct.IsRunning)
@@ -85,7 +88,14 @@ namespace CronjobBase
                 ct.Stop();
 
                 ct.Start();
+
+#if DEBUG
+                i++;
+#endif
             }
+#if DEBUG
+            Console.WriteLine($"Restart {i} tasks");
+#endif
         }
 
         #endregion
