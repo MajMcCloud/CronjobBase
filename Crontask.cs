@@ -55,36 +55,51 @@ namespace CronjobBase
 
         public bool StopOnException { get; set; } = false;
 
-        public Crontask()
+        /// <summary>
+        /// Returns if this task is running.
+        /// </summary>
+        public bool IsRunning
         {
-
+            get
+            {
+                return (_timer != null);
+            }
         }
 
-        public Crontask(TimeSpan duration, eRunningType runningType)
+
+        public Crontask()
+        {
+            CrontaskManager.RegisterTask(this);
+        }
+
+        public Crontask(TimeSpan duration, eRunningType runningType) : this()
         {
             this._duration = duration;
             this._runningType = runningType;
         }
 
-        public Crontask(int hours, int minutes, int seconds, eRunningType runningType)
+        public Crontask(int hours, int minutes, int seconds, eRunningType runningType) : this()
         {
             this._duration = new TimeSpan(hours, minutes, seconds);
             this._runningType = runningType;
         }
 
-        public Crontask(int hours, int minutes, int seconds, DayOfWeek weekDay, eRunningType runningType)
+        public Crontask(int hours, int minutes, int seconds, DayOfWeek weekDay, eRunningType runningType) : this()
         {
             this._duration = new TimeSpan(hours, minutes, seconds);
             this._runningType = runningType;
             this._dayofWeek = weekDay;
         }
 
+        ~Crontask()
+        {
+            CrontaskManager.UnregisterTask(this);
+        }
+
         public void Start(bool doInitialRun = false)
         {
             if (_duration == null)
                 return;
-
-            Console.WriteLine("Start");
 
             if (doInitialRun)
             {
@@ -93,7 +108,7 @@ namespace CronjobBase
                 return;
             }
 
-            
+
 
             _timer = new Timer();
             _timer.AutoReset = false;
@@ -101,12 +116,9 @@ namespace CronjobBase
             _timer.Elapsed += _timer_Elapsed;
             _timer.Start();
 
-            SystemEvents.TimeChanged += SystemEvents_TimeChanged;
-            SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
-
         }
 
-        
+
 
         public void InvokeAction()
         {
@@ -185,7 +197,6 @@ namespace CronjobBase
 
             try
             {
-                Console.WriteLine("Elapsed");
                 _lastrun = DateTime.Now;
 
                 OnDoTask(new EventArgs());
@@ -201,46 +212,28 @@ namespace CronjobBase
                 if (!this.CatchExceptions)
                     throw ex;
 
-                //Wenn Exception, dann nicht weiter ausführen
+                //When enabled, stop on exception
                 if (this.StopOnException)
                 {
                     return;
                 }
             }
 
-            //Neustart
+            //Restart
             Start();
         }
 
-        //Time has changed. Running in VM ?
-        private void SystemEvents_TimeChanged(object sender, EventArgs e)
-        {
-            Console.WriteLine("SystemEvents_TimeChanged");
-
-            this.Stop();
-
-            this.Start(false);
-        }
-
-        private void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
-        {
-            Console.WriteLine("SystemEvents_PowerModeChanged");
-
-            this.Stop();
-
-            this.Start(false);
-        }
-
+        /// <summary>
+        /// Stops the task.
+        /// </summary>
         public void Stop()
         {
-            Console.WriteLine("Stop");
-            SystemEvents.TimeChanged -= SystemEvents_TimeChanged;
-            SystemEvents.PowerModeChanged -= SystemEvents_PowerModeChanged;
-
             if (_timer == null)
                 return;
 
             _timer.Stop();
+
+            _timer = null;
 
         }
 
