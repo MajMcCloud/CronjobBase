@@ -39,6 +39,7 @@ namespace CronjobBase
             SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
         }
 
+
         #region "Time-Checkings"
 
         private static void TimeChecker_DoTask(object sender, EventArgs e)
@@ -122,6 +123,30 @@ namespace CronjobBase
                 return;
 
             RegisteredTasks.Remove(task);
+        }
+
+
+        /// <summary>
+        /// Starts all registered tasks.
+        /// </summary>
+        /// <param name="doInitialRun"></param>
+        public static void StartAllTasks(bool doInitialRun = false)
+        {
+            foreach(var t in RegisteredTasks)
+            {
+                t.Start(doInitialRun);
+            }
+        }
+
+        /// <summary>
+        /// Stops all registered tasks.
+        /// </summary>
+        public static void StopAllTasks()
+        {
+            foreach(var t in RegisteredTasks)
+            {
+                t.Stop();
+            }
         }
 
     }
