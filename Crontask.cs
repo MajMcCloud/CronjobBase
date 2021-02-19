@@ -66,6 +66,11 @@ namespace CronjobBase
             }
         }
 
+        public virtual bool ShouldRun()
+        {
+            return true;
+        }
+
 
         public Crontask()
         {
@@ -199,9 +204,12 @@ namespace CronjobBase
             {
                 _lastrun = DateTime.Now;
 
-                OnDoTask(new EventArgs());
+                if (ShouldRun())
+                {
+                    OnDoTask(new EventArgs());
 
-                DoCronTask();
+                    DoCronTask();
+                }
             }
             catch (Exception ex)
             {
@@ -278,11 +286,9 @@ namespace CronjobBase
         /// </summary>
         public virtual void DoCronTask()
         {
-
             var task = DoAsyncCronTask();
 
             task.GetAwaiter().GetResult();
-
         }
 
         /// <summary>
