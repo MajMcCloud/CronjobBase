@@ -45,6 +45,10 @@
     <Compile Include="ICrontask.cs" />
     <Compile Include="CrontaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tasks\SomeDaysTask.cs" />
+    <Compile Include="tasks\DailyTasks.cs" />
+    <Compile Include="tasks\WeekendDaysTasks.cs" />
+    <Compile Include="tasks\WorkingDaysTask.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
